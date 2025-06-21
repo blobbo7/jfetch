@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 
-# jfetch 0.3.7
-# removed psutil for better binary stability
+# jfetch 0.4
+# unknown distro safety, better dependencies
 
 import subprocess
 import platform
@@ -59,23 +59,20 @@ gpu = subprocess.check_output(gpyou, shell=True, text=True)
 
 ANSI_PATTERN = re.compile(r'(\x1b\[[0-9;]*m)')
 
-def lineprint(line_number, filename="example.txt"): #really weird stuff idk
-    try:
-        with open(filename, "r", encoding="utf-8") as file:
-            active_codes = []
-            for current_line, content in enumerate(file, start=1):
-                codes = ANSI_PATTERN.findall(content)
-                for code in codes:
-                    if code == '\x1b[0m':
-                        active_codes.clear()
-                    else:
+def lineprint(line_number, filename="example.txt"): #really weird stuff idk:
+    with open(filename, "r", encoding="utf-8") as file:
+        active_codes = []
+        for current_line, content in enumerate(file, start=1):
+            codes = ANSI_PATTERN.findall(content)
+            for code in codes:
+                if code == '\x1b[0m':
+                    active_codes.clear()
+                else:
                         active_codes.append(code)
 
-                if current_line == line_number:
-                    prefix = ''.join(active_codes)
-                    return f"{prefix}{content.rstrip('\n')}"  # return line without printing
-    except FileNotFoundError:
-        return f"File '{filename}' not found."
+            if current_line == line_number:
+                prefix = ''.join(active_codes)
+                return f"{prefix}{content.rstrip('\n')}"  # return line without printing
 
 
 
@@ -96,6 +93,15 @@ for a in sys.argv[1:]:
 if arg:
     id2 = arg
 
+    if os.path.isfile(resource_path(f"ascii/{arg}.txt")) == False:
+        print("distro not found")
+        id2 = "poo"
+
+else:
+    if os.path.isfile(resource_path(f"ascii/{id2}.txt")) == False:
+        print("distro not found")
+        id2 = "poo"
+
 print(lineprint(1, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m user: \033[0m", end=''); print(user, end='') #user
 print(lineprint(2, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m hostname: \033[0m", end=''); print(hostname, end='') #hostname
 print(lineprint(3, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m distro: \033[0m", end=''); print(distro, end='') #distro
@@ -107,4 +113,5 @@ print() #hacky fix
 print(lineprint(8, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m disk: \033[0m", end=''); print(f"{dused}GB/{dtotal}GB") #disk
 print(lineprint(9, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m cpu: \033[0m", end=''); print(cpu, end='') #cpu
 print(lineprint(10, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m gpu: \033[0m", end=''); print(gpu, end='') #gpu
-
+print(lineprint(11, resource_path(f"ascii/{id2}.txt")), end='')
+print(lineprint(12, resource_path(f"ascii/{id2}.txt")), end='')
