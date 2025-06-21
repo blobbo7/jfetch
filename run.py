@@ -1,4 +1,8 @@
-# jfetch 0.1
+#!/usr/bin/env python3
+
+
+# jfetch 0.2
+# path stuff
 # open source babyyyyyyyyyyyyyyyyyy
 
 import subprocess
@@ -71,11 +75,12 @@ for a in sys.argv[1:]:
         break
 
 if arg:
-    with open("ascii/" + arg + ".txt", "r") as file:
+    ascii_path = resource_path(f"ascii/{arg}.txt")
+    with open(ascii_path, "r") as file:
         for line in file:
             print(line, end='')
-        
 else:
-    with open("ascii/" + id2 + ".txt", "r") as file:
+    ascii_path = resource_path(f"ascii/{id2}.txt")
+    with open(ascii_path, "r") as file:
         for line in file:
             print(line, end='')
