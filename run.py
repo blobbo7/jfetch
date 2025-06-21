@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 
-# jfetch 0.3
-# ascii fixes, better alignment
+# jfetch 0.3.7
+# removed psutil for better binary stability
 
 import subprocess
-import psutil
 import platform
 import sys
 import os
@@ -22,13 +21,28 @@ disname = "grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2 | tr -d '\"'"
 cpuinfo = "grep -m1 'model name' /proc/cpuinfo | cut -d: -f2 | xargs"
 gpyou = "lspci | grep -i 'vga' | cut -d ':' -f3- | xargs"
 
-mem = psutil.virtual_memory()
-used = mem.used // (1024 * 1024)
-total = mem.total // (1024 * 1024)
+def get_memory_info(): #memory
+    with open('/proc/meminfo') as f:
+        meminfo = {}
+        for line in f:
+            key, value = line.split(':')
+            meminfo[key.strip()] = int(value.strip().split()[0])  # kB
 
-usage = psutil.disk_usage('/')
-dused = usage.used // (1024 ** 3)
-dtotal = usage.total // (1024 ** 3)
+    total = meminfo['MemTotal'] // 1024  # MB
+    available = meminfo.get('MemAvailable', meminfo['MemFree']) // 1024  # fallback if needed
+    used = total - available
+    return used, total
+
+used, total = get_memory_info()
+
+def get_disk_info(path="/"):  #disk info
+    st = os.statvfs(path)
+    total = st.f_blocks * st.f_frsize // (1024 ** 3)  # in GB
+    free = st.f_bavail * st.f_frsize // (1024 ** 3)
+    used = total - free
+    return used, total
+
+dused, dtotal = get_disk_info()
 
 fill=' '
 
@@ -45,7 +59,7 @@ gpu = subprocess.check_output(gpyou, shell=True, text=True)
 
 ANSI_PATTERN = re.compile(r'(\x1b\[[0-9;]*m)')
 
-def lineprint(line_number, filename="example.txt"):
+def lineprint(line_number, filename="example.txt"): #really weird stuff idk
     try:
         with open(filename, "r", encoding="utf-8") as file:
             active_codes = []
@@ -94,34 +108,3 @@ print(lineprint(8, resource_path(f"ascii/{id2}.txt")), end='');       print(widt
 print(lineprint(9, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m cpu: \033[0m", end=''); print(cpu, end='') #cpu
 print(lineprint(10, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m gpu: \033[0m", end=''); print(gpu, end='') #gpu
 
-
-#ascii
-
-"""
-print() #break
-
-idcmd = "grep '^ID=' /etc/os-release | cut -d= -f2 | tr -d '\"'"
-
-id = subprocess.check_output(idcmd, shell=True, text=True)
-
-id2 = id.strip('\n')
-
-arg = None
-
-
-for a in sys.argv[1:]:
-    if a.startswith('--'):
-        arg = a[2:]  # remove --
-        break
-
-if arg:
-    ascii_path = resource_path(f"ascii/{arg}.txt")
-    with open(ascii_path, "r") as file:
-        for line in file:
-            print(line, end='')
-else:
-    ascii_path = resource_path(f"ascii/{id2}.txt")
-    with open(ascii_path, "r") as file:
-        for line in file:
-            print(line, end='')
-"""
