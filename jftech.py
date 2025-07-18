@@ -54,6 +54,7 @@ de = subprocess.check_output("echo $DESKTOP_SESSION", shell=True, text=True)
 shell = subprocess.check_output("echo $SHELL", shell=True, text=True)
 cpu = subprocess.check_output(cpuinfo, shell=True, text=True)
 gpu = subprocess.check_output(gpyou, shell=True, text=True)
+term = subproccess.check_output("echo $TERM", shell=True, text=True)
 
 
 
@@ -113,5 +114,6 @@ print() #hacky fix
 print(lineprint(8, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m disk: \033[0m", end=''); print(f"{dused}GB/{dtotal}GB") #disk
 print(lineprint(9, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m cpu: \033[0m", end=''); print(cpu, end='') #cpu
 print(lineprint(10, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m gpu: \033[0m", end=''); print(gpu, end='') #gpu
-print(lineprint(11, resource_path(f"ascii/{id2}.txt")), end='')
+print(lineprint(11, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m terminal: \033[0m", end=''); print(term, end='') #term
 print(lineprint(12, resource_path(f"ascii/{id2}.txt")), end='')
+print(lineprint(13, resource_path(f"ascii/{id2}.txt")), end='')
