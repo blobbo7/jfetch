@@ -54,7 +54,7 @@ de = subprocess.check_output("echo $DESKTOP_SESSION", shell=True, text=True)
 shell = subprocess.check_output("echo $SHELL", shell=True, text=True)
 cpu = subprocess.check_output(cpuinfo, shell=True, text=True)
 gpu = subprocess.check_output(gpyou, shell=True, text=True)
-term = subproccess.check_output("echo $TERM", shell=True, text=True)
+term = subprocess.check_output("echo $TERM", shell=True, text=True)
 
 
 
