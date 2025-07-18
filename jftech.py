@@ -109,11 +109,11 @@ print(lineprint(3, resource_path(f"ascii/{id2}.txt")), end='');       print(widt
 print(lineprint(4, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m uptime:\033[0m", end=''); print(uptime.replace('up', ''), end='') #uptime
 print(lineprint(5, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m de: \033[0m", end=''); print(de, end='') #de
 print(lineprint(6, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m shell: \033[0m", end=''); print(shell, end='') #shell
-print(lineprint(7, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m memory: \033[0m", end=''); print(f"{used} MB/{total} MB", end='') #mem
+print(lineprint(7, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m terminal: \033[0m", end=''); print(term, end='') #term
+print(lineprint(8, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m memory: \033[0m", end=''); print(f"{used} MB/{total} MB", end='') #mem
 print() #hacky fix
-print(lineprint(8, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m disk: \033[0m", end=''); print(f"{dused}GB/{dtotal}GB") #disk
-print(lineprint(9, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m cpu: \033[0m", end=''); print(cpu, end='') #cpu
-print(lineprint(10, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m gpu: \033[0m", end=''); print(gpu, end='') #gpu
-print(lineprint(11, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m terminal: \033[0m", end=''); print(term, end='') #term
+print(lineprint(9, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m disk: \033[0m", end=''); print(f"{dused}GB/{dtotal}GB") #disk
+print(lineprint(10, resource_path(f"ascii/{id2}.txt")), end='');       print(width*fill, end=''); print("\033[34m cpu: \033[0m", end=''); print(cpu, end='') #cpu
+print(lineprint(11, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m gpu: \033[0m", end=''); print(gpu, end='') #gpu
 print(lineprint(12, resource_path(f"ascii/{id2}.txt")), end='')
 print('',end='')
