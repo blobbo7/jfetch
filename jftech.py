@@ -116,4 +116,4 @@ print(lineprint(9, resource_path(f"ascii/{id2}.txt")), end='');       print(widt
 print(lineprint(10, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m gpu: \033[0m", end=''); print(gpu, end='') #gpu
 print(lineprint(11, resource_path(f"ascii/{id2}.txt")), end='');      print(width*fill, end=''); print("\033[34m terminal: \033[0m", end=''); print(term, end='') #term
 print(lineprint(12, resource_path(f"ascii/{id2}.txt")), end='')
-print(''end='')
+print('',end='')
